@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>News</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container" style="padding: 30px 0;">
+		<div class="jumbotron">
+		  <h1 class="display-4">News Portal</h1>
+		  <p class="lead">Displaying News using Web API.</p>
+		</div>
+	    <div id="result"></div>
+	</div>
+
+<script type="text/javascript">
+	document.addEventListener('load', getAPI());
+	function getAPI(){
+		var url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=5e3f20db80b94a33b38bc76dd8e46a10`;
+		var req = new Request(url);
+		fetch(req)
+		    .then(function(response) {
+		        return response.json();
+		    })
+		    .then((data) => {
+		    	let articles = data.articles;
+		    	let thing = '';
+		    	articles.forEach(function(i,v){
+		    		 thing += `<div class="card" style = "margin-bottom:10px;">
+								  <div class="card-body">
+								    <h5 class="card-title">${i.title}</h5>
+								    <p class="card-text">${i.description}</p>
+								  </div>
+								</div>`;	
+		    	});
+		    		document.getElementById('result').innerHTML = thing;
+		    });
+           
+        }
+</script>
+</body>
+</html>
